@@ -1,15 +1,15 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-// import { DogNoseRegistry } from "../typechain-types";
+// import { IDogChain } from "../typechain-types";
 
-describe("DogNoseRegistry", function () {
-  let dogRegistry: any; //DogNoseRegistry
+describe("IDogChain", function () {
+  let dogRegistry: any; //IDogChain
   let owner: any;
 
   beforeEach(async function () {
     // Desplegar el contrato antes de cada test
-    const DogNoseRegistry = await ethers.getContractFactory("DogNoseRegistry");
-    dogRegistry = await DogNoseRegistry.deploy();
+    const IDogChain = await ethers.getContractFactory("IDogChain");
+    dogRegistry = await IDogChain.deploy();
     [owner] = await ethers.getSigners();
   });
 
