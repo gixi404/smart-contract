@@ -11,10 +11,11 @@ import type {
   DogInfo,
 } from "../utils/types";
 
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string;
+
 async function handleDogAction(action: DogAction): Promise<ActionResponse> {
   try {
     const registry: CF = await ethers.getContractFactory("IDogChain"),
-      CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS as string,
       contract = registry.attach(CONTRACT_ADDRESS) as IDogChain,
       noseHash: string = ethers.keccak256(ethers.toUtf8Bytes(action.hash));
 
@@ -93,12 +94,10 @@ async function handleDogAction(action: DogAction): Promise<ActionResponse> {
 
 async function getOwnerDogs(): Promise<OwnerDogsResponse> {
   try {
-    const registry = await ethers.getContractFactory("IDogChain");
-    const CONTRACT_ADDRESS = "TU_DIRECCIÓN_DEL_CONTRATO_DESPLEGADO";
-    const contract = registry.attach(CONTRACT_ADDRESS) as IDogChain;
-
-    const dogsHashes = await contract.getOwnerDogs();
-    const dogs = [];
+    const registry = await ethers.getContractFactory("IDogChain"),
+      contract = registry.attach(CONTRACT_ADDRESS) as IDogChain | any,
+      dogsHashes = await contract.getOwnerDogs(),
+      dogs = [];
 
     for (const hash of dogsHashes) {
       const dogInfo = await contract.getDog(hash);

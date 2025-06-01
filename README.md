@@ -1,63 +1,106 @@
-# Dog Nose Registry - Smart Contract
-Smart contract para registrar perros usando su huella nasal como identificador único.
+# 🐕 DogChain - Sistema de Registro Canino en Blockchain
 
-## Configuración Local
+## 📋 Descripción
+Sistema descentralizado para el registro y verificación de perros mediante blockchain, utilizando la huella nasal única de cada animal como identificador. Implementado en la red Sepolia de Ethereum.
 
-1. Inicia el nodo local de Hardhat en una terminal:
-```bash
-npx hardhat node
-```
-Este comando iniciará una blockchain local con 20 cuentas de prueba, cada una con 1.000 ETH.
 
-2. En otra terminal, ejecuta el script de prueba:
-```bash
-npx hardhat run scripts/index.ts --network localhost
-```
-
-## Estructura del Proyecto
-
+## 📁 Estructura del Proyecto
 ```
 smart-contract/
 ├── contracts/
-│   └── IDogChain.sol    # Contrato principal
+│   └── IDogChain.sol       # Contrato principal
 ├── scripts/
-│   └── index.ts                # Script de despliegue y prueba
-└── test/
-    └── IDogChain.test.ts # Tests unitarios
+│   ├── deploy.ts           # Script de despliegue
+│   ├── index.ts            # Funciones principales
+│   └── test.ts            # Script de pruebas
+├── utils/
+│   └── types.ts           # Tipos y interfaces
+├── .env                   # Variables de entorno
+└── hardhat.config.ts      # Configuración de Hardhat
 ```
 
-## Funcionalidades
+## ⚙️ Configuración
 
-- Registrar perros con su huella nasal
-- Consultar información de perros registrados
-- Asociar perros con sus dueños
-- Actualizar información de perros
-
-## Uso del Contrato
-
-1. **Registrar un perro**:
-```typescript
-await registry.registerDog(
-    noseHash,      // Hash de la huella nasal
-    "Max",         // Nombre del perro
-    "Labrador",    // Raza
-    3,             // Edad
-    "123456789"    // Contacto del dueño
-);
-```
-
-2. **Consultar un perro**:
-```typescript
-const dogInfo = await registry.getDog(noseHash);
-```
-
-## Tests
-
-Para ejecutar los tests:
+1. **Clonar e instalar**
 ```bash
-npx hardhat test
+git clone <url-repositorio>
+cd smart-contract
+npm install
 ```
 
-## Licencia
+2. **Configurar .env**
+```properties
+ALCHEMY_URL=https://eth-sepolia.g.alchemy.com/v2/tu-api-key
+PRIVATE_KEY=tu-clave-privada-sin-0x
+CONTRACT_ADDRESS=dirección-del-contrato
+```
 
+## 🚀 Despliegue
+
+1. **Obtener ETH de prueba**
+- Ve a [Sepolia Faucet](https://sepoliafaucet.com/)
+- Conecta tu wallet
+- Solicita ETH de prueba
+
+2. **Desplegar contrato**
+```bash
+npx hardhat run scripts/deploy.ts --network sepolia
+```
+
+
+### Registro de Perro
+```typescript
+type DogAction = {
+  action: "new-dog";
+  hash: string;
+  dogData: {
+    name: string;
+    breed: string;
+    age: number;
+    ownerContact: string;
+  };
+};
+
+await handleDogAction({
+  action: "new-dog",
+  hash: "huella-nasal-única",
+  dogData: {
+    name: "Firulais",
+    breed: "Labrador",
+    age: 3,
+    ownerContact: "dueño@email.com"
+  }
+});
+```
+
+### Búsqueda de Perro
+```typescript
+type DogAction = {
+  action: "find-dog";
+  hash: string;
+};
+
+await handleDogAction({
+  action: "find-dog",
+  hash: "huella-nasal-única"
+});
+```
+
+## 🧪 Pruebas
+
+**Ejecutar pruebas**
+```bash
+# Pruebas locales
+npx hardhat test
+
+# Pruebas en Sepolia
+npx hardhat run scripts/test.ts --network sepolia
+```
+
+## 🔍 Verificación de Transacciones
+- Usa [Sepolia Etherscan](https://sepolia.etherscan.io/)
+- Ingresa la dirección del contrato
+- Revisa el historial de transacciones
+
+## 📝 Licencia
 MIT
