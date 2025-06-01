@@ -1,23 +1,4 @@
-# 🐕 DogChain - Sistema de Registro Canino en Blockchain
-
-## 📋 Descripción
-Sistema descentralizado para el registro y verificación de perros mediante blockchain, utilizando la huella nasal única de cada animal como identificador. Implementado en la red Sepolia de Ethereum.
-
-
-## 📁 Estructura del Proyecto
-```
-smart-contract/
-├── contracts/
-│   └── IDogChain.sol       # Contrato principal
-├── scripts/
-│   ├── deploy.ts           # Script de despliegue
-│   ├── index.ts            # Funciones principales
-│   └── test.ts            # Script de pruebas
-├── utils/
-│   └── types.ts           # Tipos y interfaces
-├── .env                   # Variables de entorno
-└── hardhat.config.ts      # Configuración de Hardhat
-```
+# 🐕 IDogChain
 
 ## ⚙️ Configuración
 
